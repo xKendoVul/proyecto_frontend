@@ -6,6 +6,10 @@ export interface Genre {
   deletedAt: string;
 }
 
+export interface GenreOneResponse {
+  data: Genre;
+}
+
 export interface GenreData {
   id: number;
   name: string;

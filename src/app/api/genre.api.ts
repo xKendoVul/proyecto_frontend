@@ -1,6 +1,6 @@
-import { GenreData, GenreResponse, Genre } from "@/interfaces/genre.interface";
+import { GenreData, GenreResponse, Genre, GenreOneResponse } from "@/interfaces/genre.interface";
 
-export async function getOneGenre(data: { id: number }): Promise<Genre> {
+export async function getOneGenre(data: { id: number }): Promise<GenreOneResponse> {
   const res = await fetch (
     `http://localhost:4000/api/v1/genre/${data.id}`,
     { cache: "no-store" }
