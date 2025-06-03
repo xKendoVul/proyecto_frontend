@@ -12,58 +12,56 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Genre } from "../../interfaces/genre.interface";
-import { getAllGenres, deleteGenre } from "../../app/api/genre.api";
+import { getAllAuthors, deleteAuthor } from "@/app/api/author.api";
 import { PiPlusCircleBold } from "react-icons/pi";
 import { BiPencil, BiTrash } from "react-icons/bi";
+import { AuthorResponse } from "@/interfaces/author.interface";
 
-interface GenreResponse {
-  data: Genre[];
-  total: number;
-}
-
-export function GenreTable() {
+export function AuthorTable() {
   const [offset, setOffset] = useState(0);
   const [limit] = useState(3);
-  const [genresData, setGenresData] = useState<GenreResponse>({
+  const [AuthorsData, setAuthorsData] = useState<AuthorResponse>({
     data: [],
     total: 0,
   });
 
   const router = useRouter();
 
-  const loadGenres = async (newOffset: number) => {
-    const result = await getAllGenres(newOffset, limit);
-    setGenresData(result);
+  const loadAuthors = async (newOffset: number) => {
+    const result = await getAllAuthors(newOffset, limit);
+    setAuthorsData(result);
     setOffset(newOffset);
 
     console.log(result)
   };
 
-  const Delete = async (genreId: number) => {
+  const Delete = async (authorId: number) => {
     try {
-      await deleteGenre(genreId);
-      alert('Marca eliminada correctamente');
-      await loadGenres(offset);
-    } catch (error) {
-      console.log(error)
-      alert('Error al eliminar marca')
+      await deleteAuthor(authorId);
+      alert('Autor eliminado correctamente');
+      await loadAuthors(offset);
+    } catch (error: any) {
+      const msg = 
+        error?.response?.data?.message ||
+        error?.message ||
+        'error al eliminar autor';
+      alert(msg);
     }
   };
 
   useEffect(() => {
-    loadGenres(0);
+    loadAuthors(0);
   }, []);
 
   return (
     <div className="space-y-4">
       <div className="flex justify-end">
         <Link
-          href="/dashboard/genres/add"
+          href="/dashboard/authors/add"
           className={buttonVariants({ variant: "default" })}
         >
           <PiPlusCircleBold className="mr-2 h-4 w-4" />
-          Agregar Genero
+          Agregar Autor
         </Link>
       </div>
 
@@ -77,21 +75,21 @@ export function GenreTable() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {genresData.data.map((genre) => (
-              <TableRow key={genre.id}>
-                <TableCell className="font-medium">{genre.id}</TableCell>
-                <TableCell>{genre.name}</TableCell>
+            {AuthorsData.data.map((author) => (
+              <TableRow key={author.id}>
+                <TableCell className="font-medium">{author.id}</TableCell>
+                <TableCell>{author.name}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex gap-2 justify-end">
-                    <Button onClick={() => router.push(`/dashboard/genres/${genre.id}`)}
-                      //   variant="outline"
+                    <Button onClick={() => router.push(`/dashboard/authors/${author.id}`)}
+                      variant="outline"
                       size="sm"
                       className="bg-blue-600 text-white :hover:bg-blue-700"
                     >
                       <BiPencil className="h-4 w-4" /> Editar
                     </Button>
-                    <Button onClick={() => Delete(genre.id)}
-                      //   variant="destructive"
+                    <Button onClick={() => Delete(author.id)}
+                      variant="destructive"
                       size="sm"
                       className="bg-destructive text-destructive-foreground"
                     >
@@ -110,19 +108,19 @@ export function GenreTable() {
         <Button
           variant="outline"
           disabled={offset === 0}
-          onClick={() => loadGenres(offset - limit)}
+          onClick={() => loadAuthors(offset - limit)}
         >
           Anterior
         </Button>
         <span className="text-sm text-muted-foreground">
           Página {Math.floor(offset / limit) + 1} de{" "}
-          {Math.ceil(genresData.total / limit)}
+          {Math.ceil(AuthorsData.total / limit)}
         </span>
         <Button
           variant="outline"
           className="hover:bg-gray-400/90"
-          disabled={offset + limit >= genresData.total}
-          onClick={() => loadGenres(offset + limit)}
+          disabled={offset + limit >= AuthorsData.total}
+          onClick={() => loadAuthors(offset + limit)}
         >
           Siguiente
         </Button>
@@ -131,4 +129,4 @@ export function GenreTable() {
   );
 }
 
-export default GenreTable;
+export default AuthorTable;

@@ -1,4 +1,4 @@
-import { GenreData, GenreResponse, Genre, GenreOneResponse } from "@/interfaces/genre.interface";
+import { GenreData, GenreResponse, GenreOneResponse } from "@/interfaces/genre.interface";
 
 export async function getOneGenre(data: { id: number }): Promise<GenreOneResponse> {
   const res = await fetch (
@@ -9,11 +9,11 @@ export async function getOneGenre(data: { id: number }): Promise<GenreOneRespons
 }
 
 export async function getAllGenres(
-  // offset: number = 0,
-  // limit: number = 5
+  offset: number = 0,
+  limit: number = 5
 ): Promise<GenreResponse> {
   const res = await fetch (
-    `http://localhost:4000/api/v1/genre`,
+    `http://localhost:4000/api/v1/genre?limit=${limit}&offset=${offset}`,
     { cache: "no-store" }
   );
   return await res.json();

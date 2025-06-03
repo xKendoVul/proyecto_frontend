@@ -1,20 +1,20 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import GenreTable from "../../../components/genres/genre-table";
+import AuthorTable from '../../../components/authors/author-table';
 
-function BrandsTablePage() {
+function AuthorTablePage() {
   return (
     <div className="container mx-auto py-8">
       <Card className="w-full max-w-6xl mx-auto">
         <CardHeader>
-          <CardTitle>Tabla de Generos literarios</CardTitle>
+          <CardTitle>Tabla de Autores</CardTitle>
         </CardHeader>
         <CardContent>
-          <GenreTable />
+          <AuthorTable />
         </CardContent>
       </Card>
     </div>
   );
 }
 
-export default BrandsTablePage;
+export default AuthorTablePage;

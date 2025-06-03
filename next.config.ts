@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.vexels.com",
       },
+      {
+        protocol: "https",
+        hostname: "cdn4.iconfinder.com",
+      }
     ],
   },
 };
