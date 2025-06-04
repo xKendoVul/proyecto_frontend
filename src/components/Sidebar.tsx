@@ -2,11 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { CiLogout } from "react-icons/ci";
 import { SidebarItem } from "./SidebarItem";
+import { signOut } from "next-auth/react";
 import {
   IoCalendarOutline,
   IoBookOutline,
   IoBookmarkOutline,
   IoManOutline,
+  IoBusinessOutline
 } from "react-icons/io5";
 
 
@@ -30,10 +32,19 @@ const menuItems = [
     icon: <IoManOutline />,
     title: "Autores",
     path: "/dashboard/authors",
+  },
+  {
+    icon: <IoBusinessOutline />,
+    title: "Editoriales",
+    path: "/dashboard/publishers",
   }
 ];
 
 export const Sidebar = () => {
+  const handleLogOut = () => {
+    signOut()
+  }
+
   return (
     <aside className="ml-[-100%] fixed z-20 top-0 pb-3 px-6 w-full flex flex-col justify-between h-screen bg-gradient-to-b from-green-100 via-white to-green-50 shadow-2xl border-r border-green-200 transition duration-300 md:w-4/12 lg:ml-0 lg:w-[25%] xl:w-[20%] 2xl:w-[15%]">
       <div>
@@ -78,6 +89,7 @@ export const Sidebar = () => {
 
       <div className="px-6 -mx-6 pt-4 flex justify-between items-center border-t border-green-200 bg-green-50 rounded-t-2xl shadow-sm">
       <button
+        onClick={handleLogOut}
         className="px-4 py-3 flex items-center space-x-4 rounded-md text-green-700 hover:bg-green-100 transition font-semibold group"
       >
         <CiLogout className="text-2xl" />

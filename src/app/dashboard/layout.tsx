@@ -1,3 +1,5 @@
+"use client"
+
 import { Sidebar, TopMenu } from "@/components";
 
 export default function DashboardLayout({
