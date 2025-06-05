@@ -7,7 +7,7 @@ function PublisherTablePage() {
     <div className="container mx-auto py-8">
       <Card className="w-full max-w-6xl mx-auto">
         <CardHeader>
-          <CardTitle>Tabla de Autores</CardTitle>
+          <CardTitle>Tabla de Editoriales</CardTitle>
         </CardHeader>
         <CardContent>
           <PublisherTable />
