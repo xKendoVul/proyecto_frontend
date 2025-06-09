@@ -12,11 +12,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Book, BookResponse } from "@/interfaces/book.interface"
 import { getAllBooks, deleteBook } from "@/app/api/book.api"
 import { PiPlusCircleBold } from "react-icons/pi";
 import { BiPencil, BiTrash } from "react-icons/bi";
+import Image from 'next/image';
 
 export function BookTable() {
   const [offset, setoffset] = useState(0);
@@ -30,7 +31,7 @@ export function BookTable() {
 
   const loadBooks = async (newOffset: number) => {
     const result = await getAllBooks(newOffset, limit);0
-    setBookData(result);
+    setBooksData(result);
     setoffset(newOffset);
     console.log(result)
   };
@@ -48,7 +49,7 @@ export function BookTable() {
 
   useEffect(() => {
     loadBooks(0);
-  } []);
+  }, []);
 
   return (
     <div className='space-y-4'>
@@ -62,9 +63,55 @@ export function BookTable() {
         </Link>
       </div>
       <div className="rounded-md border">
-        <Table>
-          <TableHeader></TableHeader>
-        </Table>
+          {booksData.data.map((book) => (
+            <Card key={book.id} className="border-2">
+              <CardHeader>
+                <CardTitle>{book.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <Image
+                  src={book.image}
+                  alt="portada libro"
+                  height={300}
+                  width={200}
+                  style={{ objectFit: "cover" }}
+                />
+                <div className="mt-2">
+                  <h2 className="font-semibold">Generos</h2>
+                  <div className="flex flex-wrap gap-2">
+                    {book.genre && book.genre.length > 0 ? (
+                      book.genre.map((g) => (
+                        <span
+                        key={g.id}
+                        className="bg-gray-200 rounded px-2 py-1"
+                        >
+                          {g.name}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-gray-400">Sin género</span>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter className="flex gap-2 justify-end">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => router.push(`/dashboard/books/${book.id}`)}
+                >
+                  Ver
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => router.push(`/dashboard/books/edit/${book.id}`)}
+                >
+                  <BiPencil className="mr-1" /> Editar
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
       </div>
     </div>
   )

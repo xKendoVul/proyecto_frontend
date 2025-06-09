@@ -13,6 +13,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "cdn4.iconfinder.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.cdn3.buscalibre.com"
       }
     ],
   },
