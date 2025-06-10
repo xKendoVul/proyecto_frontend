@@ -30,7 +30,7 @@ export function BookTable() {
   const router = useRouter();
 
   const loadBooks = async (newOffset: number) => {
-    const result = await getAllBooks(newOffset, limit);0
+    const result = await getAllBooks(newOffset, limit);
     setBooksData(result);
     setoffset(newOffset);
     console.log(result)
@@ -55,7 +55,7 @@ export function BookTable() {
     <div className='space-y-4'>
       <div className="flex justify-end">
         <Link 
-          href="dashboard/books/add"
+          href="/dashboard/books/add"
           className={buttonVariants({ variant: "default" })}
         >
           <PiPlusCircleBold className="mr-2 h-4 w-4" />
@@ -63,8 +63,11 @@ export function BookTable() {
         </Link>
       </div>
       <div className="rounded-md border">
-          {booksData.data.map((book) => (
-            <Card key={book.id} className="border-2">
+          {(!booksData.data || booksData.data.length === 0) ? (
+            <div className="p-4 text-center text-gray-500">No hay libros registrados.</div>
+          ) : 
+            booksData.data.map((book) => (
+              <Card key={book.id} className="border-2">
               <CardHeader>
                 <CardTitle>{book.title}</CardTitle>
               </CardHeader>
