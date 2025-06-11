@@ -30,10 +30,10 @@ export function PublisherForm({ publisherId }: { publisherId?: number }) {
   const onSubmit = handleSubmit(async (data) => {
     if (publisherId) {
       await updatePublisher({ ...data, id: publisherId });
-      alert("Autor Actualizado");
+      alert("Editorial Actualizada");
     } else {
       await addPublisher(data);
-      alert("Autor insertado");
+      alert("Editorial insertada");
     }
     router.push("/dashboard/publishers");
     router.refresh();

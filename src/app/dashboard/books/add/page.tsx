@@ -1,11 +1,21 @@
-'use client';
 
-import FormBook from './form_books';
+import React from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { BookForm } from "@/components/books/book-form";
 
-export default function AddBookPage() {
+function BookAddPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-blue-100 p-6">
-      <FormBook />
+    <div className="h-screen flex justify-center items-center">
+      <Card>
+        <CardHeader>
+          <CardTitle>Agregar Nuevo Autor</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <BookForm />
+        </CardContent>
+      </Card>
     </div>
   );
 }
+
+export default BookAddPage;

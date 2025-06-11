@@ -30,10 +30,10 @@ export function GenreForm({ genreId }: { genreId?: number }) {
   const onSubmit = handleSubmit(async (data) => {
     if (genreId) {
       await updateGenre({ ...data, id: genreId });
-      alert("Libro Actualizado");
+      alert("Genero Actualizado");
     } else {
       await addGenre(data);
-      alert("Libro insertado");
+      alert("Genero insertado");
     }
     router.push("/dashboard/genres");
     router.refresh();
@@ -52,7 +52,7 @@ export function GenreForm({ genreId }: { genreId?: number }) {
         {genreId ? "Actualizar" : "Agregar"}
       </Button>
     </form>
-  );
+  );                                        
 }
 
 export default GenreForm;

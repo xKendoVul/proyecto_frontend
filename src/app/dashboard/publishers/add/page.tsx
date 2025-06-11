@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import AuthorForm from "@/components/authors/author-form";
+import PublisherForm from "@/components/publishers/publisher-form";
 
 function BrandsAddPage() {
   return (
@@ -10,7 +10,7 @@ function BrandsAddPage() {
           <CardTitle>Agregar Nueva Editorial</CardTitle>
         </CardHeader>
         <CardContent>
-          <AuthorForm />
+          <PublisherForm />
         </CardContent>
       </Card>
     </div>

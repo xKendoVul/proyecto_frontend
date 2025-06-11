@@ -1,20 +1,20 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import PublisherTable from '../../../components/publishers/publisher-table';
+import BookTable from "@/components/books/book-table";
 
-function PublisherTablePage() {
+function AuthorTablePage() {
   return (
     <div className="container mx-auto py-8">
       <Card className="w-full max-w-6xl mx-auto">
         <CardHeader>
-          <CardTitle>Tabla de Editoriales</CardTitle>
+          <CardTitle>Libros</CardTitle>
         </CardHeader>
         <CardContent>
-          <PublisherTable />
+          <BookTable />
         </CardContent>
       </Card>
     </div>
   );
 }
 
-export default PublisherTablePage;
+export default AuthorTablePage;
