@@ -5,7 +5,7 @@ export interface Book {
     genre_id: number[];
     author_id: number;
     publisher_id: number;
-    isAvaliable: boolean;
+    isAvailable: boolean;
     //user?: string;
     image?: string;
     createdAt: string;

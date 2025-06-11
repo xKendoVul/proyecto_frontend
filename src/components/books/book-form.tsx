@@ -45,7 +45,6 @@ export function BookForm({ bookId }: { bookId?: number }) {
     fetchOptions();
   }, []);
 
-  // Si es edición, cargar datos del libro y resetear el form
   useEffect(() => {
     if (bookId) {
       setLoading(true)
@@ -54,10 +53,10 @@ export function BookForm({ bookId }: { bookId?: number }) {
           reset({
             "title": book.data.title,
             "publication_year": book.data.publication_year,
-            "genre": book.data.genre, // array de ids
+            "genre_id": book.data.genre_id, // array de ids
             "author_id": book.data.author_id,
             "publisher_id": book.data.publisher_id,
-            "isAvaliable": book.data.isAvaliable,
+            "isAvailable": book.data.isAvailable,
             "image": book.data.image,
           });
         }
@@ -80,8 +79,6 @@ export function BookForm({ bookId }: { bookId?: number }) {
     router.push("/dashboard/books");
     router.refresh();
   });
-
-
 
   if (bookId && loading) {
     return <div>Cargando datos</div>
@@ -117,7 +114,7 @@ export function BookForm({ bookId }: { bookId?: number }) {
 
       <Label>Géneros</Label>
       <Controller
-        name="genre"
+        name="genre_id"
         control={control}
         render={({ field }) => (
           <Select
@@ -150,7 +147,7 @@ export function BookForm({ bookId }: { bookId?: number }) {
 
       <Label>Disponibilidad</Label>
       <Controller
-        name="isAvaliable"
+        name="isAvailable"
         control={control}
         render={({ field }) => (
           <Select

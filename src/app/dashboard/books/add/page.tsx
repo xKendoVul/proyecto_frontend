@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookForm } from "@/components/books/book-form";
 
-function BrandsAddPage() {
+function BookAddPage() {
   return (
     <div className="h-screen flex justify-center items-center">
       <Card>
@@ -17,4 +17,4 @@ function BrandsAddPage() {
   );
 }
 
-export default BrandsAddPage;
+export default BookAddPage;
