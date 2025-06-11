@@ -17,6 +17,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "images.cdn3.buscalibre.com"
+      },
+      {
+        protocol: "https",
+        hostname: "proassetspdlcom.cdnstatics2.com"
       }
     ],
   },

@@ -2,10 +2,11 @@ export interface Book {
     id: number;
     title: string;
     publication_year: number;
-    genre: number[];
+    genre_id: number[];
     author_id: number;
     publisher_id: number;
     isAvaliable: boolean;
+    //user?: string;
     image?: string;
     createdAt: string;
     updatedAt: string;
@@ -20,10 +21,11 @@ export interface BookData {
     id?: number;
     title: string;
     publication_year: number;
-    genre: number[];
+    genre_id: number[];
     author_id: number;
     publisher_id: number;
-    isAvaliable?: boolean;
+    user?: string;
+    isAvailable?: boolean;
     image?: string;
 }
 
