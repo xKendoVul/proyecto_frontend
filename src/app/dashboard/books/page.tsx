@@ -9,7 +9,7 @@ function AuthorTablePage() {
         <CardHeader>
           <CardTitle>Libros</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="grid-cols-4">
           <BookTable />
         </CardContent>
       </Card>

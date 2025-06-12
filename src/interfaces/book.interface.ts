@@ -6,7 +6,6 @@ export interface Book {
     author_id: number;
     publisher_id: number;
     isAvailable: boolean;
-    //user?: string;
     image?: string;
     createdAt: string;
     updatedAt: string;

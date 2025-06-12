@@ -14,7 +14,7 @@ import { getAllAuthors } from "@/app/api/author.api"
 import { getAllPublishers } from "@/app/api/publisher.api"
 
 export function BookForm({ bookId }: { bookId?: number }) {
-  const { register, handleSubmit, reset, control, setValue } = useForm<BookData>();
+  const { register, handleSubmit, reset, control } = useForm<BookData>();
   const router = useRouter();
   const [loading, setLoading] = useState(false)
   const [loadingOptions, setLoadingOptions] = useState(true);
@@ -68,7 +68,6 @@ export function BookForm({ bookId }: { bookId?: number }) {
   }, [bookId, reset]);
 
   const onSubmit = handleSubmit(async (data) => {
-    // data.genre es array de ids, author_id y publisher_id son ids, isAvaliable es boolean
     if (bookId) {
       await updateBook({ ...data, id: bookId });
       alert("Libro Actualizado");
@@ -110,7 +109,7 @@ export function BookForm({ bookId }: { bookId?: number }) {
       />
 
       <Label>Fecha de Publicacion</Label>
-      <Input type="number" {...register("publication_year")} />
+      <Input type="number" {...register("publication_year", {valueAsNumber: true})} />
 
       <Label>Géneros</Label>
       <Controller

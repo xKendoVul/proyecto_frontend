@@ -21,7 +21,7 @@ import Image from 'next/image';
 
 export function BookTable() {
   const [offset, setoffset] = useState(0);
-  const [limit] = useState(3);
+  const [limit] = useState(4);
   const [booksData, setBooksData] = useState<BookResponse>({
     data: [],
     total: 0,
@@ -52,7 +52,7 @@ export function BookTable() {
   }, []);
 
   return (
-    <div className='space-y-4'>
+    <div>
       <div className="flex justify-end">
         <Link 
           href="/dashboard/books/add"
@@ -62,42 +62,52 @@ export function BookTable() {
           Agregar Libro
         </Link>
       </div>
-      <div className="rounded-md border">
-          {(!booksData.data || booksData.data.length === 0) ? (
-            <div className="p-4 text-center text-gray-500">No hay libros registrados.</div>
-          ) : 
-            booksData.data.map((book) => (
-              <Card key={book.id} className="border-2">
-              <CardHeader>
-                <CardTitle>{book.title}</CardTitle>
+      <br />
+      <div className="rounded-md border p-4">
+        {(!booksData.data || booksData.data.length === 0) ? (
+          <div className="p-4 text-center text-gray-500">No hay Libros</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {booksData.data.map((book) => (
+              <Card key={book.id} className="border-2 h-full flex flex-col shadow-md p-0">
+              <CardHeader className="bg-gray-100 shadow-sm w-full p-0">
+                <div className="w-full py-3 px-2 flex items-center justify-center">
+                  <CardTitle 
+                  className="text-lg font-bold text-center"
+                  title={book.title}
+                  >
+                  {book.title}
+                </CardTitle>
+                </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex-1 flex flex-col items-center justify-between">
                 <Image
                   src={book.image}
                   alt="portada libro"
-                  height={300}
-                  width={200}
+                  height={200}
+                  width={150}
                   style={{ objectFit: "cover" }}
+                  className="mx-auto rounded"
                 />
-                <div className="mt-2">
-                  <h2 className="font-semibold">Generos</h2>
+                <div className="mt-4 w-full">
+                  <h2 className="font-semibold text-sm mb-1">Generos</h2>
                   <div className="flex flex-wrap gap-2">
                     {book.genre && book.genre.length > 0 ? (
                       book.genre.map((g) => (
                         <span
                         key={g.id}
-                        className="bg-gray-200 rounded px-2 py-1"
+                        className="bg-gray-200 rounded px-2 py-1 text-xs"
                         >
                           {g.name}
                         </span>
                       ))
                     ) : (
-                      <span className="text-gray-400">Sin género</span>
+                      <span className="text-gray-400 text-xs">Sin género</span>
                     )}
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="flex gap-2 justify-end">
+              <CardFooter className="flex gap-2 justify-end bg-gray-100 shadow-inner rounded-b-md">
                 <Button
                   variant="outline"
                   size="sm"
@@ -108,13 +118,36 @@ export function BookTable() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => router.push(`/dashboard/books/edit/${book.id}`)}
+                  onClick={() => router.push(`/dashboard/books/${book.id}`)}
                 >
                   <BiPencil className="mr-1" /> Editar
                 </Button>
               </CardFooter>
             </Card>
-          ))}
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="flex items-center justify-center gap-4 mt-4">
+        <Button
+          variant="outline"
+          disabled={offset === 0}
+          onClick={() => loadBooks(offset - limit)}
+        >
+          Anterior
+        </Button>
+        <span className="text-sm text-muted-foreground">
+          Página {Math.floor(offset / limit) + 1} de{" "}
+          {Math.ceil(booksData.total / limit)}
+        </span>
+        <Button
+          variant="outline"
+          className="hover:bg-gray-400/90"
+          disabled={offset + limit >= booksData.total}
+          onClick={() => loadBooks(offset + limit)}
+        >
+          Siguiente
+        </Button>
       </div>
     </div>
   )
