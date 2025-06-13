@@ -103,7 +103,7 @@ export function BookTable() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => router.push(`/dashboard/books/${book.id}`)}
+                  onClick={() => router.push(`/dashboard/books/view/${book.id}`)}
                 >
                   Ver
                 </Button>

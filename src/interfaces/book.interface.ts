@@ -1,10 +1,14 @@
+import { Genre } from "./genre.interface";
+import { Author } from "./author.interface";
+import { Publisher } from "./publisher.interface";
+
 export interface Book {
     id: number;
     title: string;
     publication_year: number;
-    genre_id: number[];
-    author_id: number;
-    publisher_id: number;
+    genre: Genre[];
+    author: Author;
+    publisher: Publisher;
     isAvailable: boolean;
     image?: string;
     createdAt: string;
@@ -20,9 +24,9 @@ export interface BookData {
     id?: number;
     title: string;
     publication_year: number;
-    genre_id: number[];
-    author_id: number;
-    publisher_id: number;
+    genre: Genre[];
+    author: Author;
+    publisher: Publisher;
     user?: string;
     isAvailable?: boolean;
     image?: string;

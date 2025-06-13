@@ -1,15 +1,17 @@
+"use client"
+
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "../ui/separator";
 import { CheckCircle, XCircle } from "lucide-react";
-import { BookOneResponse, BookResponse } from '../../interfaces/book.interface';
+import { BookOneResponse } from '../../interfaces/book.interface';
 import { useEffect, useState } from "react";
-import { getAllBooks, getOneBook } from "@/app/api/book.api";
+import { getOneBook } from "@/app/api/book.api";
 
 export default function BookView({ bookId }: { bookId?: number }) {
 
-  const [bookData, setBookData] = useState<BookOneResponse> 
+  const [bookData, setBookData] = useState<BookOneResponse | undefined>(undefined);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -42,14 +44,15 @@ export default function BookView({ bookId }: { bookId?: number }) {
             <CardContent className="space-y-6">
               <div>
                 <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-2">Autor</h3>
-                <p className="text-x1 font-semibold">{book.author}</p>
+                <p className="text-x1 font-semibold">{book.author.name}</p>
               </div>
+              <Separator/>
               <div>
                 <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-2">Generos</h3>
                 <div className="flex flex-wrap gap-2">
-                  {book.genres.map((genre, index) => (
-                    <Badge key={index} variant="secondary" className="text-sm">
-                      {genre}
+                  {book.genre.map((genre) => (
+                    <Badge key={genre.id} variant="secondary" className="text-sm">
+                      {genre.name}
                     </Badge>
                   ))}
                 </div>
@@ -57,12 +60,12 @@ export default function BookView({ bookId }: { bookId?: number }) {
               <Separator/>
               <div>
                 <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-2">Año de publicacion</h3>
-                <p className="text-x1 font-semibold">{book.publishYear}</p>
+                <p className="text-x1 font-semibold">{book.publication_year}</p>
               </div>
               <Separator/>
               <div>
                 <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-2">Editorial</h3>
-                <p className="text-x1 font-semibold">{book.publisher}</p>
+                <p className="text-x1 font-semibold">{book.publisher.name}</p>
               </div>
               <Separator/>
               <div>
@@ -87,20 +90,19 @@ export default function BookView({ bookId }: { bookId?: number }) {
               </div>
             </CardContent>
           </Card>
-
-          <div className="flex justify-center lg:justify-end">
+          </div>
+          <div className="flex justify-center items-start">
             <div className="relative">
               <Image
-                src={book.coverImage}
+                src={book.image}
                 alt={`Portada de ${book.title}`}
-                width={400}
-                height={600}
+                width={370}
+                height={500}
                 className="rounded-lg shadow-2xl border object-cover"
                 priority
               />
             </div>
           </div>
-        </div>
       </div>
     </div>
   )

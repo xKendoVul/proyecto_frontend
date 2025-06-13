@@ -8,7 +8,7 @@ type Props = {
 async function BookViewPage({ params }: Props) {
   const resolvedParams = await params
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div>
       <BookView bookId={Number(resolvedParams.id)} />
     </div>
   )

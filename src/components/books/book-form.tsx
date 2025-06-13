@@ -53,9 +53,9 @@ export function BookForm({ bookId }: { bookId?: number }) {
           reset({
             "title": book.data.title,
             "publication_year": book.data.publication_year,
-            "genre_id": book.data.genre_id, // array de ids
-            "author_id": book.data.author_id,
-            "publisher_id": book.data.publisher_id,
+            "genre": book.data.genre, // array de ids
+            "author": book.data.author,
+            "publisher": book.data.publisher,
             "isAvailable": book.data.isAvailable,
             "image": book.data.image,
           });
@@ -94,14 +94,14 @@ export function BookForm({ bookId }: { bookId?: number }) {
 
       <Label>Autor</Label>
       <Controller
-        name="author_id"
+        name="author"
         control={control}
         render={({ field }) => (
           <Select
             {...field}
             options={authors}
             placeholder="Agregar autor"
-            value={authors.find(opt => opt.value === field.value) || null}
+            value={authors.find(opt => opt.value === (typeof field.value === "object" && field.value !== null ? field.value.id : field.value)) || null}
             onChange={option => field.onChange(option ? option.value : null)}
             isClearable
           />
@@ -113,7 +113,7 @@ export function BookForm({ bookId }: { bookId?: number }) {
 
       <Label>Géneros</Label>
       <Controller
-        name="genre_id"
+        name="genre"
         control={control}
         render={({ field }) => (
           <Select
@@ -122,7 +122,12 @@ export function BookForm({ bookId }: { bookId?: number }) {
             options={genres}
             isClearable
             placeholder="Agregar géneros"
-            value={genres.filter(opt => field.value?.includes(opt.value))}
+            value={Array.isArray(field.value)
+              ? genres.filter(opt => (field.value as (number | { id: number })[]).some(v =>
+                  typeof v === "number" ? v === opt.value : typeof v === "object" && v !== null && "id" in v && v.id === opt.value
+                ))
+              : []
+            }
             onChange={options => field.onChange(options ? options.map(opt => opt.value) : [])}
           />
         )}
@@ -130,14 +135,14 @@ export function BookForm({ bookId }: { bookId?: number }) {
 
       <Label>Editorial</Label>
       <Controller
-        name="publisher_id"
+        name="publisher"
         control={control}
         render={({ field }) => (
           <Select
             {...field}
             options={publishers}
             placeholder="Agregar editorial"
-            value={publishers.find(opt => opt.value === field.value) || null}
+            value={publishers.find(opt => opt.value === (typeof field.value === "object" && field.value !== null ? field.value.id : field.value)) || null}
             onChange={option => field.onChange(option ? option.value : null)}
             isClearable
           />
