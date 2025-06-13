@@ -4,14 +4,6 @@ import React, { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button, buttonVariants } from "../ui/button"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Book, BookResponse } from "@/interfaces/book.interface"
 import { getAllBooks, deleteBook } from "@/app/api/book.api"
