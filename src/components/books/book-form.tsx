@@ -57,7 +57,7 @@ export function BookForm({ bookId }: { bookId?: number }) {
             "author_id": book.data.author.id,
             "publisher_id": book.data.publisher.id,
             "isAvailable": book.data.isAvailable,
-            "cuantity": book.data.cuantity,
+            "available_copies": book.data.available_copies,
             "image": book.data.image,
           });
         }
@@ -89,9 +89,19 @@ export function BookForm({ bookId }: { bookId?: number }) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <Label>Libro</Label>
-      <Input {...register("title")} />
+    <form className="max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-8 space-y-6" onSubmit={onSubmit}>
+      <h2 className="text-2xl font-bold text-indigo-800 mb-4 text-center">Registrar Libro</h2>
+      
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Título</label>
+        <input
+          type="text"
+          className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          placeholder="Título del libro"
+          required
+          {...register("title")}
+        />
+      </div>
 
       <Label>Autor</Label>
       <Controller
@@ -150,32 +160,28 @@ export function BookForm({ bookId }: { bookId?: number }) {
         )}
       />
 
-      <Label>Disponibilidad</Label>
-      <Controller
-        name="isAvailable"
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            options={[
-              { value: true, label: "Disponible" },
-              { value: false, label: "No disponible" }
-            ]}
-            placeholder="Seleccionar disponibilidad"
-            value={
-              field.value === undefined
-                ? null
-                : [{ value: true, label: "Disponible" }, { value: false, label: "No disponible" }]
-                    .find(opt => opt.value === field.value)
-            }
-            onChange={option => field.onChange(option ? option.value : null)}
-            isClearable
-          />
-        )}
-      />
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Género</label>
+        <Controller
+          name="genre_id"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              isMulti
+              options={genres}
+              isClearable
+              placeholder="Agregar géneros"
+              value={genres.filter(opt => field.value?.includes(opt.value))}
+              onChange={options => field.onChange(options ? options.map(opt => opt.value) : [])}
+              className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            />
+          )}
+        />
+      </div>
 
       <Label>Unidades</Label>
-      <Input type="number" {...register("cuantity", {valueAsNumber: true})} />
+      <Input type="number" {...register("available_copies", {valueAsNumber: true})} />
 
       <Label>Link Imagen</Label>
       <Input placeholder="Link de Imagen" {...register("image")} />
