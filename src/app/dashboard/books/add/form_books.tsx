@@ -70,7 +70,13 @@ export default function FormBook() {
       setPublisherId("");
       setGenreId([]);
     } catch (error: any) {
-      setMensaje(error.message || "Error al guardar el libro");
+      alert(
+        error?.response?.data?.message
+          ? Array.isArray(error.response.data.message)
+            ? error.response.data.message.join(", ")
+            : error.response.data.message
+          : "Error al agregar el libro"
+      );
     }
   };
 
@@ -96,9 +102,14 @@ export default function FormBook() {
         <label className="font-semibold text-gray-700">Año de publicación</label>
         <input
           type="number"
-          value={publication_year}
-          onChange={e => setPublicationYear(e.target.value === "" ? "" : Number(e.target.value))}
-          min={0}
+          value={publication_year === 0 ? "" : publication_year}
+          onChange={e => {
+            const val = e.target.value;
+            setPublicationYear(val === "" ? "" : Math.max(1, Number(val)));
+          }}
+          min={1}
+          step={1}
+          required
           className="rounded px-3 py-2 border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"
           placeholder="Ej: 2020"
         />
