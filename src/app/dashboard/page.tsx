@@ -31,7 +31,7 @@ export default function DashboardLayout({
               />
                 Ver géneros
               <a
-                href="/dashboard/cars"
+                href="/dashboard/books"
                 className="bg-green-100 hover:bg-green-200 text-green-700 font-semibold py-2 px-6 rounded-full transition shadow"
               >
                 Ver libros
@@ -70,6 +70,37 @@ export default function DashboardLayout({
               <button className="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-full transition shadow">
                 Ver todos los préstamos
               </button>
+            </div>
+          </div>
+          <div className="mt-8">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">
+              Géneros disponibles
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {generos.map((genero: any) => (
+                <div
+                  key={genero.id}
+                  className="group bg-white rounded-3xl shadow-xl p-8 flex flex-col items-center justify-center border border-emerald-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                >
+                  <div className="relative z-10 flex flex-col items-center">
+                    {genero.image && (
+                      <img
+                        src={genero.image}
+                        alt={genero.name}
+                        className="w-24 h-24 object-cover rounded-full mb-2"
+                      />
+                    )}
+                    <span className="text-emerald-600 text-3xl font-extrabold mb-2 drop-shadow-lg">
+                      {genero.name}
+                    </span>
+                    <span className="text-gray-500 text-center mb-4">
+                      {genero.descripcion || genero.description || "Sin descripción"}
+                    </span>
+                    {/* ...otros elementos... */}
+                  </div>
+                  {/* ...otros elementos... */}
+                </div>
+              ))}
             </div>
           </div>
         </div>

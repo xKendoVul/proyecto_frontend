@@ -7,7 +7,7 @@ function BrandsAddPage() {
     <div className="h-screen flex justify-center items-center">
       <Card>
         <CardHeader>
-          <CardTitle>Agregar Nuevo Genero</CardTitle>
+          <CardTitle>Agregar uevo Genero</CardTitle>
         </CardHeader>
         <CardContent>
           <GenreForm />

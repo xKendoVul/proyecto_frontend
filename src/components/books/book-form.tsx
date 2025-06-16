@@ -89,88 +89,126 @@ export function BookForm({ bookId }: { bookId?: number }) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <Label>Libro</Label>
-      <Input {...register("title")} />
+    <form className="max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-8 space-y-6" onSubmit={onSubmit}>
+      <h2 className="text-2xl font-bold text-indigo-800 mb-4 text-center">Registrar Libro</h2>
+      
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Título</label>
+        <input
+          type="text"
+          className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          placeholder="Título del libro"
+          required
+          {...register("title")}
+        />
+      </div>
 
-      <Label>Autor</Label>
-      <Controller
-        name="author_id"
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            options={authors}
-            placeholder="Agregar autor"
-            value={authors.find(opt => opt.value === field.value) || null}
-            onChange={option => field.onChange(option ? option.value : null)}
-            isClearable
-          />
-        )}
-      />
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Autor</label>
+        <Controller
+          name="author_id"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              options={authors}
+              placeholder="Agregar autor"
+              value={authors.find(opt => opt.value === field.value) || null}
+              onChange={option => field.onChange(option ? option.value : null)}
+              isClearable
+              className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            />
+          )}
+        />
 
-      <Label>Fecha de Publicacion</Label>
-      <Input type="number" {...register("publication_year")} />
+      </div>
 
-      <Label>Géneros</Label>
-      <Controller
-        name="genre_id"
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            isMulti
-            options={genres}
-            isClearable
-            placeholder="Agregar géneros"
-            value={genres.filter(opt => field.value?.includes(opt.value))}
-            onChange={options => field.onChange(options ? options.map(opt => opt.value) : [])}
-          />
-        )}
-      />
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Año de publicación</label>
+        <input
+          type="number"
+          className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          placeholder="Ej: 2024"
+          required
+          {...register("publication_year")}
+        />
+      </div>
 
-      <Label>Editorial</Label>
-      <Controller
-        name="publisher_id"
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            options={publishers}
-            placeholder="Agregar editorial"
-            value={publishers.find(opt => opt.value === field.value) || null}
-            onChange={option => field.onChange(option ? option.value : null)}
-            isClearable
-          />
-        )}
-      />
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Editorial</label>
+        <Controller
+          name="publisher_id"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              options={publishers}
+              placeholder="Agregar editorial"
+              value={publishers.find(opt => opt.value === field.value) || null}
+              onChange={option => field.onChange(option ? option.value : null)}
+              isClearable
+              className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            />
+          )}
+        />
+      </div>
 
-      <Label>Disponibilidad</Label>
-      <Controller
-        name="isAvailable"
-        control={control}
-        render={({ field }) => (
-          <Select
-            {...field}
-            options={[
-              { value: true, label: "Disponible" },
-              { value: false, label: "No disponible" }
-            ]}
-            placeholder="Seleccionar disponibilidad"
-            value={
-              field.value === undefined
-                ? null
-                : [{ value: true, label: "Disponible" }, { value: false, label: "No disponible" }]
-                    .find(opt => opt.value === field.value)
-            }
-            onChange={option => field.onChange(option ? option.value : null)}
-            isClearable
-          />
-        )}
-      />
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Género</label>
+        <Controller
+          name="genre_id"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              isMulti
+              options={genres}
+              isClearable
+              placeholder="Agregar géneros"
+              value={genres.filter(opt => field.value?.includes(opt.value))}
+              onChange={options => field.onChange(options ? options.map(opt => opt.value) : [])}
+              className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            />
+          )}
+        />
+      </div>
 
-      <Label>Link Imagen</Label>
-      <Input placeholder="Link de Imagen" {...register("image")} />
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Disponibilidad</label>
+        <Controller
+          name="isAvailable"
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              options={[
+                { value: true, label: "Disponible" },
+                { value: false, label: "No disponible" }
+              ]}
+              placeholder="Seleccionar disponibilidad"
+              value={
+                field.value === undefined
+                  ? null
+                  : [{ value: true, label: "Disponible" }, { value: false, label: "No disponible" }]
+                      .find(opt => opt.value === field.value)
+              }
+              onChange={option => field.onChange(option ? option.value : null)}
+              isClearable
+              className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            />
+          )}
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">Link Imagen</label>
+        <input
+          type="url"
+          className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          placeholder="https://..."
+          {...register("image")}
+        />
+      </div>
 
       <Button className={buttonVariants({ variant: "default" })}>
         {bookId ? "Actualizar" : "Agregar"}
