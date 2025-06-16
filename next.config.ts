@@ -21,6 +21,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "proassetspdlcom.cdnstatics2.com"
+      },
+      {
+        protocol: "https",
+        hostname: "imagessl0.casadellibro.com"
       }
     ],
   },

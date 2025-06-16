@@ -53,10 +53,11 @@ export function BookForm({ bookId }: { bookId?: number }) {
           reset({
             "title": book.data.title,
             "publication_year": book.data.publication_year,
-            "genre": book.data.genre, // array de ids
-            "author": book.data.author,
-            "publisher": book.data.publisher,
+            "genre_id": book.data.genre.id,
+            "author_id": book.data.author.id,
+            "publisher_id": book.data.publisher.id,
             "isAvailable": book.data.isAvailable,
+            "cuantity": book.data.cuantity,
             "image": book.data.image,
           });
         }
@@ -94,7 +95,7 @@ export function BookForm({ bookId }: { bookId?: number }) {
 
       <Label>Autor</Label>
       <Controller
-        name="author"
+        name="author_id"
         control={control}
         render={({ field }) => (
           <Select
@@ -113,7 +114,7 @@ export function BookForm({ bookId }: { bookId?: number }) {
 
       <Label>Géneros</Label>
       <Controller
-        name="genre"
+        name="genre_id"
         control={control}
         render={({ field }) => (
           <Select
@@ -135,7 +136,7 @@ export function BookForm({ bookId }: { bookId?: number }) {
 
       <Label>Editorial</Label>
       <Controller
-        name="publisher"
+        name="publisher_id"
         control={control}
         render={({ field }) => (
           <Select
@@ -172,6 +173,9 @@ export function BookForm({ bookId }: { bookId?: number }) {
           />
         )}
       />
+
+      <Label>Unidades</Label>
+      <Input type="number" {...register("cuantity", {valueAsNumber: true})} />
 
       <Label>Link Imagen</Label>
       <Input placeholder="Link de Imagen" {...register("image")} />

@@ -8,6 +8,7 @@ import { CheckCircle, XCircle } from "lucide-react";
 import { BookOneResponse } from '../../interfaces/book.interface';
 import { useEffect, useState } from "react";
 import { getOneBook } from "@/app/api/book.api";
+import { LoanRequestDialog } from "@/components/loan/loan-form";
 
 export default function BookView({ bookId }: { bookId?: number }) {
 
@@ -34,14 +35,14 @@ export default function BookView({ bookId }: { bookId?: number }) {
   const book = bookData.data
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-        <div className="space-y-6">
+    <div className="container mx-auto px-4 py-5">
+      <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        <div className="space-y-4">
           <Card>
             <CardHeader>
               <CardTitle className="text-3x1 font-bold">{book.title}</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-3">
               <div>
                 <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-2">Autor</h3>
                 <p className="text-x1 font-semibold">{book.author.name}</p>
@@ -88,8 +89,21 @@ export default function BookView({ bookId }: { bookId?: number }) {
                   )}
                 </div>
               </div>
+              <Separator/>
+              <div>
+                <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-1">Cantidad disponible</h3>
+                <p className="text-x1 font-semibold">{book.available_copies}</p>
+              </div>
             </CardContent>
           </Card>
+
+          <LoanRequestDialog
+          userId={1} // el id del usuario autenticado
+          bookId={book.id} // solo este libro
+          bookTitle={book.title
+          }
+        />
+
           </div>
           <div className="flex justify-center items-start">
             <div className="relative">

@@ -28,7 +28,7 @@ export async function addBook(data: BookData) {
 
   if (!res.ok) {
     const errorText = await res.text();
-    console.error("Error del backend:", errorText); // <-- Verifica el error real
+    console.error("Error del backend:", errorText);
     throw new Error("Error al agregar el libro");
   }
 

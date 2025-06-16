@@ -1,10 +1,16 @@
+"use client"
+
 import { Sidebar, TopMenu } from "@/components";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const router = useRouter()
+
   return (
     <>
       {/* Main Layout content - Contenido principal del Layout */}
@@ -67,7 +73,7 @@ export default function DashboardLayout({
                   </span>
                 </li>
               </ul>
-              <button className="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-full transition shadow">
+              <button onClick={() => router.push('dashboard/loans')} className="mt-6 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-full transition shadow">
                 Ver todos los préstamos
               </button>
             </div>

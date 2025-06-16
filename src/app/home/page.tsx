@@ -1,50 +1,38 @@
 'use client';
 
+import { BookResponse } from "@/interfaces/book.interface";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-const sampleBooks = [
-  {
-    id: 1,
-    title: "Cien años de soledad",
-    author: "Gabriel García Márquez",
-    cover:
-      "https://images.cdn1.buscalibre.com/fit-in/360x360/b9/4f/b94f5bcdafbc7e78abf47764c09c1776.jpg",
-  },
-  {
-    id: 2,
-    title: "1984",
-    author: "George Orwell",
-    cover:
-      "https://images.cdn1.buscalibre.com/fit-in/360x360/9a/b3/9ab3e4e0451ee927a3c25d7a2174a661.jpg",
-  },
-  {
-    id: 3,
-    title: "Orgullo y prejuicio",
-    author: "Jane Austen",
-    cover:
-      "https://images.cdn1.buscalibre.com/fit-in/360x360/0c/34/0c3443510d3f183bbf70b73539cfefc6.jpg",
-  },
-  {
-    id: 4,
-    title: "El principito",
-    author: "Antoine de Saint-Exupéry",
-    cover:
-      "https://images.cdn1.buscalibre.com/fit-in/360x360/ba/7c/ba7c1998c287f843671fcde64c1141d7.jpg",
-  },
-];
-
+import { getAllBooks } from "../api/book.api";
+import Image from "next/image";
 export default function HomePage() {
   const [user, setUser] = useState<{ fullname: string } | null>(null);
+  const [offset, setOffset] = useState(0)
+  const [limit] = useState(8)
+  const [bookData, setBookData] = useState<BookResponse>({
+    data: [],
+    total: 0,
+  })
   const [search, setSearch] = useState("");
 
+  const router = useRouter();
+
+  const loadBooks = async (newOffset: number) => {
+    const result = await getAllBooks(newOffset, limit)
+    console.log(result)
+    setBookData(result);
+    setOffset(newOffset);
+  }
+
   useEffect(() => {
+    loadBooks(0);
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
   }, []);
 
-  const filteredBooks = sampleBooks.filter((book) =>
+  const filteredBooks = bookData.data.filter((book) =>
     book.title.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -93,16 +81,19 @@ export default function HomePage() {
               key={book.id}
               className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transform hover:-translate-y-1 transition"
             >
-              <img
-                src={book.cover}
-                alt={book.title}
-                className="w-full h-64 object-cover"
+              <Image
+                src={book.image}
+                alt="portada libro"
+                height={200}
+                width={170}
+                style={{ objectFit: "cover" }}
+                className="mx-auto rounded"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold text-emerald-800">{book.title}</h3>
-                <p className="text-sm text-gray-600 mb-2">de {book.author}</p>
-                <button className="bg-emerald-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-emerald-700 transition">
-                  Leer ahora
+                <p className="text-sm text-gray-600 mb-2">de {book.author.name}</p>
+                <button onClick={() => router.push(`home/book/${book.id}`)} className="bg-emerald-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-emerald-700 transition">
+                  Ver Info
                 </button>
               </div>
             </div>

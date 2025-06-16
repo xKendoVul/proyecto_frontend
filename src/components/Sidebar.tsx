@@ -21,7 +21,7 @@ const menuItems = [
   {
     icon: <IoBookOutline />,
     title: "Libros",
-    path: "/dashboard/books/add",
+    path: "/dashboard/books",
   },
   {
     icon: <IoBookmarkOutline />,
