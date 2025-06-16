@@ -5,23 +5,21 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getAllBooks } from "../api/book.api";
 import Image from "next/image";
+
 export default function HomePage() {
   const [user, setUser] = useState<{ fullname: string } | null>(null);
   const [offset, setOffset] = useState(0)
-  const [limit] = useState(8)
+  // const [limit] = useState(8)
   const [bookData, setBookData] = useState<BookResponse>({
     data: [],
     total: 0,
   })
   const [search, setSearch] = useState("");
-  const [libros, setLibros] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const router = useRouter();
-
   const loadBooks = async (newOffset: number) => {
-    const result = await getAllBooks(newOffset, limit)
+    const result = await getAllBooks()
     console.log(result)
     setBookData(result);
     setOffset(newOffset);
@@ -33,6 +31,7 @@ export default function HomePage() {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    setLoading(false)
   }, []);
 
   const filteredBooks = bookData.data.filter((book) =>
@@ -93,9 +92,9 @@ export default function HomePage() {
           📚 Libros para leer
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {libros.map((libro: any) => (
+          {bookData.data.map((book) => (
             <div
-              key={libro.id}
+              key={book.id}
               className="bg-white rounded-3xl shadow-xl p-8 flex flex-col items-center justify-center border border-emerald-100 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer relative overflow-hidden"
             >
               <Image
@@ -115,12 +114,12 @@ export default function HomePage() {
               </div>
               <span
                 className={`mt-3 px-3 py-1 rounded-full text-xs font-bold ${
-                  libro.isAvailable
+                  book.isAvailable
                     ? "bg-emerald-200 text-emerald-800"
                     : "bg-red-200 text-red-800"
                 }`}
               >
-                {libro.isAvailable ? "Disponible" : "No disponible"}
+                {book.isAvailable ? "Disponible" : "No disponible"}
               </span>
             </div>
           ))}

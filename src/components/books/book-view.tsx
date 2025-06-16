@@ -102,7 +102,7 @@ export default function BookView({ bookId }: { bookId?: number }) {
           bookId={book.id} // solo este libro
           bookTitle={book.title
           }
-        />
+          />
 
           </div>
           <div className="flex justify-center items-start">

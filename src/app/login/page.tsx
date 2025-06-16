@@ -22,7 +22,7 @@ export default function LoginPage() {
       if (email.endsWith("@bibliotecang.com")) {
         router.push("/dashboard");
       } else {
-        router.push("/Home");
+        router.push("/home");
       }
     } catch (error: any) {
       setMensaje(error.message || "Error al iniciar sesión");

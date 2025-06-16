@@ -159,27 +159,6 @@ export function BookForm({ bookId }: { bookId?: number }) {
           />
         )}
       />
-
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">Género</label>
-        <Controller
-          name="genre_id"
-          control={control}
-          render={({ field }) => (
-            <Select
-              {...field}
-              isMulti
-              options={genres}
-              isClearable
-              placeholder="Agregar géneros"
-              value={genres.filter(opt => field.value?.includes(opt.value))}
-              onChange={options => field.onChange(options ? options.map(opt => opt.value) : [])}
-              className="w-full px-4 py-2 rounded-lg border border-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            />
-          )}
-        />
-      </div>
-
       <Label>Unidades</Label>
       <Input type="number" {...register("available_copies", {valueAsNumber: true})} />
 

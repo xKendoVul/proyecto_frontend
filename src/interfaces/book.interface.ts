@@ -32,8 +32,8 @@ export interface BookData {
     user?: string;
     isAvailable?: boolean;
     image?: string;
-    total_copies?: number;
-    available_copies?: number;
+    total_copies: number;
+    available_copies: number;
 }
 
 export interface BookResponse {

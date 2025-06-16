@@ -46,7 +46,7 @@ export default function BuscadorGeneros({ generos, onFiltrar }) {
 
       {/* Botón Volver */}
       <button
-        onClick={() => router.push("/Home")}
+        onClick={() => router.push("/home")}
         className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 text-white font-semibold px-6 py-2.5 rounded-full shadow-lg hover:scale-105 active:scale-95 transition-all duration-300"
       >
         <svg
